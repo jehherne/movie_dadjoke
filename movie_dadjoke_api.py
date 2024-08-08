@@ -15,6 +15,19 @@ def movie_data():
     plot_choosewordforjoke(movie_title,json_movie_data,random_joke)
 
 
+def replace_character(split):
+        for word in range (len(split)):
+            for character in [',','.','(',')','!','?']:
+                if character in split[word]:
+                    split[word] = split[word].replace(character,"")
+        return split
+
+
+def wait():
+    import time
+    time.sleep(1)
+
+
 def plot_choosewordforjoke(movie_title,json_movie_data,random_joke):
     header = {"accept":"text/plain"}
     if random_joke==True:
@@ -27,10 +40,7 @@ def plot_choosewordforjoke(movie_title,json_movie_data,random_joke):
         print("No Movies Found, Maybe Try Other Movies")
         return
     split_plot = plot.split()
-    for word in range (len(split_plot)):
-        for character in [',','.','(',')']:
-            if character in split_plot[word]:
-                split_plot[word] = split_plot[word].replace(character,"")
+    replace_character(split_plot)
     dadjoke(movie_title,plot,split_plot,header)
 
 
@@ -48,6 +58,7 @@ def dadjoke(movie_title,plot,split_plot,header):
         print("I've got no jokes about this movie. It's too serious!")
         return
     split_joke = get_joke.text.split()
+    split_joke = replace_character(split_joke)
     for each_word in range (len(split_joke)):
         if split_joke[each_word] == split_plot[num]:
             split_joke[each_word] = "***"+split_plot[num]+"***"
@@ -55,5 +66,11 @@ def dadjoke(movie_title,plot,split_plot,header):
     split_plot[num]="***"+split_plot[num]+"***"
     plot = " ".join(split_plot)
     print("Plot of {}: {}\n".format(movie_title,plot))
+    wait()
+    print("Thinking of a Joke Related to {}...".format(split_plot[num]))
+    wait()
+    wait()
+    print("Got It!")
+    wait()
     print("Joke About Your Movie: {}".format(joke))
 movie_data()
