@@ -60,8 +60,8 @@ def dadjoke(movie_title,plot,split_plot,header):
     split_joke = get_joke.text.split()
     split_joke = replace_character(split_joke)
     for each_word in range (len(split_joke)):
-        if split_joke[each_word] == split_plot[num]:
-            split_joke[each_word] = "***"+split_plot[num]+"***"
+        if split_joke[each_word].lower() == split_plot[num].lower():
+            split_joke[each_word] = "***"+split_joke[each_word]+"***"
     joke = " ".join(split_joke)
     split_plot[num]="***"+split_plot[num]+"***"
     plot = " ".join(split_plot)
